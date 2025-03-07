@@ -15,20 +15,12 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_addNoteButton_clicked() {
-    bool ok;
-    QString title = QInputDialog::getText(this, tr("Titel der Notiz"), tr("Titel:"), QLineEdit::Normal, "", &ok);
-    if (ok && !title.isEmpty()) {
-        QString content = QInputDialog::getText(this, tr("Inhalt der Notiz"), tr("Inhalt:"), QLineEdit::Normal, "", &ok);
-        if (ok) {
-            Note note;
-            note.title = title.toStdString();
-            note.content = content.toStdString();
-            if (notebook.addNote(note)) {
-                QMessageBox::information(this, tr("Erfolg"), tr("Notiz hinzugefügt."));
-            } else {
-                QMessageBox::warning(this, tr("Fehler"), tr("Fehler beim Hinzufügen der Notiz."));
-            }
-        }
+    NewNote newNoteDialog(this);
+    if (newNoteDialog.exec() == QDialog::Accepted) {
+        Note note;
+        note.title = newNoteDialog.getTitle().toStdString();
+        note.content = newNoteDialog.getContent().toStdString();
+        notebook.addNote(note);
     }
 }
 
@@ -70,5 +62,15 @@ void MainWindow::on_deleteNoteButton_clicked() {
         } else {
             QMessageBox::warning(this, tr("Fehler"), tr("Fehler beim Löschen der Notiz."));
         }
+    }
+}
+
+void MainWindow::on_actionNewNote_triggered() {
+    NewNote newNoteDialog(this);
+    if (newNoteDialog.exec() == QDialog::Accepted) {
+        Note note;
+        note.title = newNoteDialog.getTitle();
+        note.content = newNoteDialog.getContent();
+        notebook.addNote(note);
     }
 }

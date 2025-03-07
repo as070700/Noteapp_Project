@@ -86,5 +86,12 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addNoteButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_addNoteButton_clicked()</slot>
+  </connection>
+ </connections>
 </ui>

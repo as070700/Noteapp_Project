@@ -4,19 +4,21 @@
 #include <QDialog>
 
 namespace Ui {
-class newNote;
+class NewNote;
 }
 
-class newNote : public QDialog
-{
+class NewNote : public QDialog {
     Q_OBJECT
 
 public:
-    explicit newNote(QWidget *parent = nullptr);
-    ~newNote();
+    explicit NewNote(QWidget *parent = nullptr);
+    ~NewNote();
+
+    QString getTitle() const;
+    QString getContent() const;
 
 private:
-    Ui::newNote *ui;
+    Ui::NewNote *ui;
 };
 
 #endif // NEWNOTE_H
